@@ -70,15 +70,9 @@ public class Main extends JFrame {
 
             if (command.equals("C")) {
                 clear();
-            } else {
-                appendInput(command);
             }
-            textField.setText(input.toString());
-        }
-    }
 
     /**
-
      * @created 2024-10-24
      * @lastModified 2024-10-24
      *
@@ -87,17 +81,35 @@ public class Main extends JFrame {
      *   <li>2024-10-24: 초기화 기능 추가 @see (Baek Da Yeon)</li>
      * </ul>
      */
+     else if (command.equals("Backspace")) {
+            backspace();
+        }
+                textField.setText(input.toString());
+    }
+        }
+
+    /**
+     * @created 2024-10-24
+     * @lastModified 2024-10-24
+     *
+     * @changelog
+     * <ul>
+     *   <li>2024-10-24: 뒤로가기 추가 (Baek Da Yeon)</li>
+     * </ul>
+     */
 
     private void clear() {
         input.setLength(0);
         input.append("0");
     }
 
-    private void appendInput(String command) {
-        if (input.toString().equals("0")) {
+    private void backspace() {
+        if (input.length() > 1) {
+            input.deleteCharAt(input.length() - 1); //@see
+        } else {
             input.setLength(0);
+            input.append("0");
         }
-        input.append(command);
     }
 
     public static void main(String[] args) {
