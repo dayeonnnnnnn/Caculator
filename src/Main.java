@@ -1,6 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,17 +25,23 @@ import javax.swing.JTextField;
  * </ul>
  */
 public class Main extends JFrame {
+    private JTextField textField;
+    private StringBuilder input;
+    private String operator; // 연산자 변수 추가
+    private double firstOperand; // 첫 번째 피연산자 변수 추가
+
     public Main() {
         this.setTitle("계산기");
         this.setSize(500, 250);
         this.setLayout(new BorderLayout());
 
-        JTextField textField = new JTextField("0");
+        input = new StringBuilder("0");
+        textField = new JTextField(input.toString());
         textField.setEditable(false);
         this.add(textField, BorderLayout.NORTH);
 
-        JPanel Panel = new JPanel();
-        Panel.setLayout(new GridLayout(6,4,3,3));
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(6, 4, 3, 3));
 
         String[] text = {
                 "C", "Backspace", "=", ".",
@@ -43,33 +51,56 @@ public class Main extends JFrame {
                 "0", "", "", "+"
         };
 
-        /**
-         *
-         * @created 2024-10-24
-         * @lastModified 2024-10-24
-         *
-         * @changelog
-         * <ul>
-         *   <li>2024-10-24: 최초 생성 (Baek Da Yeon)</li>
-         *   <li>2024-10-24: 문자 위치 변경 (Baek Da Yeon)</li>
-         *
-         * </ul>
-         */
-
-        for (int i = 0; i < text.length; i++) {
-            JButton button = new JButton(text[i]);
+        for (String label : text) {
+            JButton button = new JButton(label);
             button.setBackground(Color.WHITE);
-
-            Panel.add(button);
+            button.addActionListener(new ButtonClickListener());
+            panel.add(button);
         }
 
-        this.add(Panel, BorderLayout.CENTER);
-
+        this.add(panel, BorderLayout.CENTER);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    private class ButtonClickListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+
+            if (command.equals("C")) {
+                clear();
+            } else {
+                appendInput(command);
+            }
+            textField.setText(input.toString());
+        }
+    }
+
+    /**
+
+     * @created 2024-10-24
+     * @lastModified 2024-10-24
+     *
+     * @changelog
+     * <ul>
+     *   <li>2024-10-24: 초기화 기능 추가 @see (Baek Da Yeon)</li>
+     * </ul>
+     */
+
+    private void clear() {
+        input.setLength(0);
+        input.append("0");
+    }
+
+    private void appendInput(String command) {
+        if (input.toString().equals("0")) {
+            input.setLength(0);
+        }
+        input.append(command);
+    }
+
     public static void main(String[] args) {
-        Main f = new Main();
+        new Main();
     }
 }
