@@ -18,7 +18,7 @@ import javax.swing.JTextField;
  *
  * @changelog
  * <ul>
- *   <li>2020-03-15: 최초 생성 (Baek Da Yeon)</li>
+ *   <li>2024-10-24: 최초 생성 (Baek Da Yeon)</li>
  *
  * </ul>
  */
@@ -36,12 +36,25 @@ public class Main extends JFrame {
         Panel.setLayout(new GridLayout(6,4,3,3));
 
         String[] text = {
-                "Backspace", "", "", "CE", "C",
-                "7", "8", "9", "/", "sqrt",
-                "4", "5", "6", "x", "%",
-                "1", "2", "3", "-", "1/x",
-                "0", "+/-", ".", "+", "="
+                "C", "Backspace", "=", ".",
+                "7", "8", "9", "/",
+                "4", "5", "6", "*",
+                "1", "2", "3", "-",
+                "0", "", "", "+"
         };
+
+        /**
+         *
+         * @created 2024-10-24
+         * @lastModified 2024-10-24
+         *
+         * @changelog
+         * <ul>
+         *   <li>2024-10-24: 최초 생성 (Baek Da Yeon)</li>
+         *   <li>2024-10-24: 문자 위치 변경 (Baek Da Yeon)</li>
+         *
+         * </ul>
+         */
 
         for (int i = 0; i < text.length; i++) {
             JButton button = new JButton(text[i]);
