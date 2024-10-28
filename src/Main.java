@@ -35,7 +35,16 @@ public class Main extends JFrame {
         this.setSize(500, 250);
         this.setLayout(new BorderLayout());
 
-        input = new StringBuilder("0");
+        input = new StringBuilder("");
+        /**
+     * @created 2024-10-24
+                * @lastModified 2024-10-24
+                *
+     * @changelog
+     * <ul>
+     *   <li>2024-10-24: 0 제거 (Baek Da Yeon)</li>
+     * </ul>
+     */
         textField = new JTextField(input.toString());
         textField.setEditable(false);
         this.add(textField, BorderLayout.NORTH);
