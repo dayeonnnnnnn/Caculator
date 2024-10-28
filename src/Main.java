@@ -27,8 +27,8 @@ import javax.swing.JTextField;
 public class Main extends JFrame {
     private JTextField textField;
     private StringBuilder input;
-    private String operator; // 연산자 변수 추가
-    private double firstOperand; // 첫 번째 피연산자 변수 추가
+    private String operator;
+    private double firstOperand;
 
     public Main() {
         this.setTitle("계산기");
@@ -98,16 +98,15 @@ public class Main extends JFrame {
     else if (command.equals("=")) {
                 calculate();
     }
-      else if (command.equals("+")) {
-        firstOperand = Double.parseDouble(input.toString());
-        operator = "+";
-        input.setLength(0); // 입력 초기화
-    } else {
-        input.append(command);
-    }
-            textField.setText(input.toString());
-}
-    }
+            else if (command.equals("+") || command.equals("-") || command.equals("*") || command.equals("/")) {
+                firstOperand = Double.parseDouble(input.toString());
+                operator = command;
+                input.setLength(0);
+            } else {
+                input.append(command);
+            }
+            textField.setText(input.toString()); //@see
+
     /**
      *
      * * @created 2024-10-24
@@ -116,40 +115,65 @@ public class Main extends JFrame {
      * @changelog
      * <ul>
      *   <li>2024-10-28: =, + 추가 (Baek Da Yeon)</li>
+     *   <li>2024-10-28: 사칙연산 추가 (Baek Da Yeon)</li>
      * </ul>
      **/
 
-private void calculate() {
-    if (operator != null) {
-        double secondOperand = Double.parseDouble(input.toString());
-        double result = 0;
+            switch (operator) {
+                case "+":
+                    result = firstOperand + secondOperand;
+                    break;
+                case "-":
+                    result = firstOperand - secondOperand;
+                    break;
+                case "*":
+                    result = firstOperand * secondOperand;
+                    break;
+                case "/":
+                    if (secondOperand != 0) {
+                        result = firstOperand / secondOperand;
+                    } else {
+                        textField.setText("Error"); // 0으로 나누기 오류 처리
+                        return;
+                    }
+                    break;
+            } //@see
+            /**
+             *
+             * @created 2024-10-24
+             * @lastModified 2024-10-28
+             *
+             * @changelog
+             * <ul>
+             *   <li>2024-10-28: 스위치 문 추가(Baek Da Yeon)</li>
+             * </ul>
+             **/
 
-        if (operator.equals("+")) {
-            result = firstOperand + secondOperand;
+            input.setLength(0);
+            input.append(result);
+            operator = null; // 연산자 초기화
+            textField.setText(input.toString()); // 결과를 텍스트 필드에 표시
         }
-
-        input.setLength(0);
-        input.append(result);
-        operator = null; // 연산자 초기화
     }
-}
 
-private void clear() {
-    input.setLength(0);
-    input.append("0");
-    operator = null; // 연산자 초기화
-}
-
-private void backspace() {
-    if (input.length() > 1) {
-        input.deleteCharAt(input.length() - 1);
-    } else {
+    private void clear() {
         input.setLength(0);
         input.append("0");
+        operator = null; // 연산자 초기화
+        textField.setText(input.toString()); // 텍스트 필드 업데이트
     }
-}
 
-public static void main(String[] args) {
-    new Main();
-}
+    private void backspace() {
+        if (input.length() > 1) {
+            input.deleteCharAt(input.length() - 1);
+        } else {
+            input.setLength(0);
+            input.append("0");
+        }
+        textField.setText(input.toString()); // 텍스트 필드 업데이트
+    }
+
+    public static void main(String[] args) {
+        new Main();
+    }
 }
