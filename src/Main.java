@@ -70,7 +70,7 @@ public class Main extends JFrame {
 
             if (command.equals("C")) {
                 clear();
-            }
+            } //see
 
     /**
      * @created 2024-10-24
@@ -78,41 +78,78 @@ public class Main extends JFrame {
      *
      * @changelog
      * <ul>
-     *   <li>2024-10-24: 초기화 기능 추가 @see (Baek Da Yeon)</li>
+     *   <li>2024-10-24: 초기화 기능 추가 (Baek Da Yeon)</li>
      * </ul>
      */
-     else if (command.equals("Backspace")) {
-            backspace();
-        }
-                textField.setText(input.toString());
-    }
-        }
-
+    else if (command.equals("Backspace")) {
+                backspace();
+            }
     /**
-     * @created 2024-10-24
+     *
+     * * @created 2024-10-24
      * @lastModified 2024-10-24
      *
      * @changelog
      * <ul>
      *   <li>2024-10-24: 뒤로가기 추가 (Baek Da Yeon)</li>
      * </ul>
-     */
+     **/
 
-    private void clear() {
+    else if (command.equals("=")) {
+                calculate();
+    }
+      else if (command.equals("+")) {
+        firstOperand = Double.parseDouble(input.toString());
+        operator = "+";
+        input.setLength(0); // 입력 초기화
+    } else {
+        input.append(command);
+    }
+            textField.setText(input.toString());
+}
+    }
+    /**
+     *
+     * * @created 2024-10-24
+     * @lastModified 2024-10-28
+     *
+     * @changelog
+     * <ul>
+     *   <li>2024-10-28: =, + 추가 (Baek Da Yeon)</li>
+     * </ul>
+     **/
+
+private void calculate() {
+    if (operator != null) {
+        double secondOperand = Double.parseDouble(input.toString());
+        double result = 0;
+
+        if (operator.equals("+")) {
+            result = firstOperand + secondOperand;
+        }
+
+        input.setLength(0);
+        input.append(result);
+        operator = null; // 연산자 초기화
+    }
+}
+
+private void clear() {
+    input.setLength(0);
+    input.append("0");
+    operator = null; // 연산자 초기화
+}
+
+private void backspace() {
+    if (input.length() > 1) {
+        input.deleteCharAt(input.length() - 1);
+    } else {
         input.setLength(0);
         input.append("0");
     }
+}
 
-    private void backspace() {
-        if (input.length() > 1) {
-            input.deleteCharAt(input.length() - 1); //@see
-        } else {
-            input.setLength(0);
-            input.append("0");
-        }
-    }
-
-    public static void main(String[] args) {
-        new Main();
-    }
+public static void main(String[] args) {
+    new Main();
+}
 }
