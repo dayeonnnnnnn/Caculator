@@ -81,31 +81,33 @@ public class Main extends JFrame {
      *   <li>2024-10-24: 초기화 기능 추가 (Baek Da Yeon)</li>
      * </ul>
      */
-    else if (command.equals("Backspace")) {
+
+             else if (command.equals("Backspace")) {
                 backspace();
             }
-    /**
-     *
-     * * @created 2024-10-24
-     * @lastModified 2024-10-24
-     *
-     * @changelog
-     * <ul>
-     *   <li>2024-10-24: 뒤로가기 추가 (Baek Da Yeon)</li>
-     * </ul>
-     **/
 
-    else if (command.equals("=")) {
+            /**
+             *
+             * * @created 2024-10-24
+             * @lastModified 2024-10-24
+             *
+             * @changelog
+             * <ul>
+             *   <li>2024-10-24: 뒤로가기 추가 (Baek Da Yeon)</li>
+             * </ul>
+             **/
+
+            else if (command.equals("=")) {
                 calculate();
-    }
-            else if (command.equals("+") || command.equals("-") || command.equals("*") || command.equals("/")) {
+            } else if (command.equals("+") || command.equals("-") || command.equals("*") || command.equals("/")) {
                 firstOperand = Double.parseDouble(input.toString());
                 operator = command;
                 input.setLength(0);
             } else {
                 input.append(command);
             }
-            textField.setText(input.toString()); //@see
+            textField.setText(input.toString());
+        } //@see
 
     /**
      *
@@ -118,6 +120,21 @@ public class Main extends JFrame {
      *   <li>2024-10-28: 사칙연산 추가 (Baek Da Yeon)</li>
      * </ul>
      **/
+            private void calculate() {
+                double secondOperand = Double.parseDouble(input.toString());
+                double result = 0; //@see
+
+                /**
+                 *
+                 * * @created 2024-10-24
+                 * @lastModified 2024-10-28
+                 *
+                 * @changelog
+                 * <ul>
+                 *   <li>2024-10-28: calculate() 메서드 추가 (Baek Da Yeon)</li>
+                 *   <li>2024-10-28: result secondOperand 변수 추가,  (Baek Da Yeon)</li>
+                 * </ul>
+                 **/
 
             switch (operator) {
                 case "+":
