@@ -49,12 +49,15 @@ public class Main extends JFrame {
      */
         textField = new JTextField(input.toString());
         textField.setEditable(false);
-        textField.setFont(new Font("Arial", Font.PLAIN, 100));
+        textField.setFont(new Font("Arial", Font.PLAIN, 50));
+        textField.setPreferredSize(new Dimension(300, 200));
+        textField.setHorizontalAlignment(JTextField.RIGHT);
+        textField.setMargin(new java.awt.Insets(100, 10, 0, 10));
         this.add(textField, BorderLayout.NORTH);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(6, 4, 3, 3));
-        panel.setPreferredSize(new Dimension(300, 400));
+        panel.setPreferredSize(new Dimension(300, 300));
 
         /**
          *
@@ -65,6 +68,7 @@ public class Main extends JFrame {
          * <ul>
          *   <li>2024-10-30: 계산기 크기 변경 (Baek Da Yeon)</li>
          *   <li>2024-10-30: 텍스트필드 크기 변경(Baek Da Yeon)</li>
+         *   <li>2024-10-30: 오른쪽 정렬 필드 변경(Baek Da Yeon)</li>
          * </ul>
          **/
 
