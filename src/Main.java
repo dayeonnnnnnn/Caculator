@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.Dimension;
 
 /**
  * 데이터베이스 연결을 관리하는 싱글톤 클래스입니다.
@@ -32,7 +34,7 @@ public class Main extends JFrame {
 
     public Main() {
         this.setTitle("계산기");
-        this.setSize(500, 250);
+        this.setSize(300, 550);
         this.setLayout(new BorderLayout());
 
         input = new StringBuilder("");
@@ -47,13 +49,27 @@ public class Main extends JFrame {
      */
         textField = new JTextField(input.toString());
         textField.setEditable(false);
+        textField.setFont(new Font("Arial", Font.PLAIN, 100));
         this.add(textField, BorderLayout.NORTH);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(6, 4, 3, 3));
+        panel.setPreferredSize(new Dimension(300, 400));
+
+        /**
+         *
+         * @created 2024-10-24
+         * @lastModified 2024-10-30
+         *
+         * @changelog
+         * <ul>
+         *   <li>2024-10-30: 계산기 크기 변경 (Baek Da Yeon)</li>
+         *   <li>2024-10-30: 텍스트필드 크기 변경(Baek Da Yeon)</li>
+         * </ul>
+         **/
 
         String[] text = {
-                "C", "Backspace", "=", ".",
+                "C", "AC", "=", ".",
                 "7", "8", "9", "/",
                 "4", "5", "6", "*",
                 "1", "2", "3", "-",
@@ -129,7 +145,8 @@ public class Main extends JFrame {
      *   <li>2024-10-28: 사칙연산 추가 (Baek Da Yeon)</li>
      * </ul>
      **/
-            private void calculate() {
+    private void calculate() {
+        if (input.length() == 0) return; // 입력이 비어있으면 계산하지 않음
                 double secondOperand = Double.parseDouble(input.toString());
                 double result = 0; //@see
 
