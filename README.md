@@ -32,6 +32,7 @@ ______________________
 
 "=": 계산 결과를 표시합니다.
 
+
 버튼 클릭은 ButtonClickListener를 통해 처리됩니다.
 
 이 클래스는 ActionListener를 구현하여 버튼이 클릭될 때 호출되는 actionPerformed 메서드를 정의하고 있습니다.
