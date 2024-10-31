@@ -75,7 +75,7 @@ public class Main extends JFrame {
          **/
 
         String[] text = {
-                "C", "AC", "", "/",
+                "C", "AC", "+/-", "/",
                 "7", "8", "9", "*",
                 "4", "5", "6", "-",
                 "1", "2", "3", "+",
@@ -84,12 +84,11 @@ public class Main extends JFrame {
 
         for (String label : text) {
             JButton button = new JButton(label);
-            button.setBackground(Color.gray); // 버튼 배경색을 회색으로 설정
+            button.setBackground(Color.gray);
             button.setForeground(Color.WHITE);
             button.addActionListener(new ButtonClickListener());
-            button.setPreferredSize(new Dimension(60, 60));
             button.setFont(new Font("Arial", Font.PLAIN, 20));
-            button.setFont(new Font("Arial", Font.BOLD, 18));// 버튼 글꼴 크기 설정
+            button.setFont(new Font("Arial", Font.BOLD, 18));
             panel.add(button);
         }
         /**
@@ -144,7 +143,9 @@ public class Main extends JFrame {
              * </ul>
              **/
 
-            else if (command.equals("=")) {
+            else if (command.equals("+/-")) {
+                toggleSign();
+            } else if (command.equals("=")) {
                 calculate();
             } else if (command.equals("+") || command.equals("-") || command.equals("*") || command.equals("/")) {
                 firstOperand = Double.parseDouble(input.toString());
@@ -167,8 +168,29 @@ public class Main extends JFrame {
      *   <li>2024-10-28: 사칙연산 추가 (Baek Da Yeon)</li>
      * </ul>
      **/
+    private void toggleSign() {
+        if (input.length() == 0) {
+            input.append("-");
+        } else {
+            double currentValue = Double.parseDouble(input.toString());
+            currentValue = -currentValue;
+            input.setLength(0);
+            input.append(currentValue);
+        }//@see
+        textField.setText(input.toString());
+    }
+        /**
+         * @created 2024-10-24
+         * @lastModified 2024-10-31
+         *
+         * @changelog
+         * <ul>
+         *   <li>2024-10-31: +/- 추가 (Baek Da Yeon)</li>
+         * </ul>
+         */
+
     private void calculate() {
-        if (input.length() == 0) return; // 입력이 비어있으면 계산하지 않음
+        if (input.length() == 0) return;
                 double secondOperand = Double.parseDouble(input.toString());
                 double result = 0; //@see
 
@@ -198,7 +220,7 @@ public class Main extends JFrame {
                     if (secondOperand != 0) {
                         result = firstOperand / secondOperand;
                     } else {
-                        textField.setText("Error"); // 0으로 나누기 오류 처리
+                        textField.setText("Error");
                         return;
                     }
                     break;
@@ -216,15 +238,15 @@ public class Main extends JFrame {
 
             input.setLength(0);
             input.append(result);
-            operator = null; // 연산자 초기화
-            textField.setText(input.toString()); // 결과를 텍스트 필드에 표시
+            operator = null;
+            textField.setText(input.toString());
         }
     }
 
     private void clear() {
-        input.setLength(0); // 입력을 비우기
-        textField.setText(""); // 텍스트 필드를 빈 문자열로 설정
-        operator = null; // 연산자 초기화
+        input.setLength(0);
+        textField.setText("");
+        operator = null;
     }
 
     private void backspace() {
@@ -234,8 +256,8 @@ public class Main extends JFrame {
             input.setLength(0);
             input.append("0");
         }
-        textField.setText(input.toString()); // 텍스트 필드 업데이트
-    }
+        textField.setText(input.toString());
+    } //@see
 
     public static void main(String[] args) {
         new Main();
