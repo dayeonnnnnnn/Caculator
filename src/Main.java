@@ -37,6 +37,7 @@ public class Main extends JFrame {
         this.setSize(300, 550);
         this.setLayout(new BorderLayout());
 
+
         input = new StringBuilder("");
         /**
      * @created 2024-10-24
@@ -54,6 +55,7 @@ public class Main extends JFrame {
         textField.setHorizontalAlignment(JTextField.RIGHT);
         textField.setMargin(new java.awt.Insets(100, 10, 0, 10));
         this.add(textField, BorderLayout.NORTH);
+
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(6, 4, 3, 3));
@@ -73,24 +75,40 @@ public class Main extends JFrame {
          **/
 
         String[] text = {
-                "C", "AC", "=", ".",
-                "7", "8", "9", "/",
-                "4", "5", "6", "*",
-                "1", "2", "3", "-",
-                "0", "", "", "+"
+                "C", "AC", "", "/",
+                "7", "8", "9", "*",
+                "4", "5", "6", "-",
+                "1", "2", "3", "+",
+                "0", " ", ".", "="
         };
 
         for (String label : text) {
             JButton button = new JButton(label);
-            button.setBackground(Color.WHITE);
+            button.setBackground(Color.gray); // 버튼 배경색을 회색으로 설정
+            button.setForeground(Color.WHITE);
             button.addActionListener(new ButtonClickListener());
+            button.setPreferredSize(new Dimension(60, 60));
+            button.setFont(new Font("Arial", Font.PLAIN, 20));
+            button.setFont(new Font("Arial", Font.BOLD, 18));// 버튼 글꼴 크기 설정
             panel.add(button);
         }
+        /**
+         *
+         * @created 2024-10-24
+         * @lastModified 2024-10-30
+         *
+         * @changelog
+         * <ul>
+         *   <li>2024-10-31: 버튼 수정 (Baek Da Yeon)</li>
+
+         * </ul>
+         **/
 
         this.add(panel, BorderLayout.CENTER);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
 
     private class ButtonClickListener implements ActionListener {
         @Override
@@ -111,7 +129,7 @@ public class Main extends JFrame {
      * </ul>
      */
 
-             else if (command.equals("Backspace")) {
+             else if (command.equals("AC")) {
                 backspace();
             }
 
@@ -204,10 +222,9 @@ public class Main extends JFrame {
     }
 
     private void clear() {
-        input.setLength(0);
-        input.append("0");
+        input.setLength(0); // 입력을 비우기
+        textField.setText(""); // 텍스트 필드를 빈 문자열로 설정
         operator = null; // 연산자 초기화
-        textField.setText(input.toString()); // 텍스트 필드 업데이트
     }
 
     private void backspace() {
